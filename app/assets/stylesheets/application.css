@@ -13,3 +13,7 @@
  *= require_tree .
  *= require_self
  */
+.menubar {
+    background: gainsboro;
+    padding: 1rem;
+}

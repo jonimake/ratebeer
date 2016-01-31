@@ -1,0 +1,14 @@
+<%= form_for(@rating) do |f| %>
+    <div class="field">
+      <%= f.label :beer %><br>
+      <%= f.select :beer_id, options_from_collection_for_select(@beers, :id, :to_s) %>
+    </div>
+
+    <div class="field">
+      <%= f.label :scorer %><br>
+      <%= f.number_field :score %>
+    </div>
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+<% end %>
