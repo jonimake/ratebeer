@@ -4,7 +4,7 @@ class AddUsersToOrphanRatings < ActiveRecord::Migration
     if not u.nil?
       Rating.all.each{ |r| u.ratings << r }
     else
-      Ratings.all.each{ |r| r.destroy}
+      Rating.all.each{ |r| r.destroy}
     end
   end
 end
