@@ -1,0 +1,37 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Username:</strong>
+  <%= @user.username %>
+</p>
+
+<div>
+  Has made <%= pluralize(@user.ratings.length, 'rating', 'ratings')%>
+  <br>
+  Average rating <%= @user.average_rating%>
+</div>
+<h2>Reittaukset</h2>
+<ul>
+  <% @user.ratings.each do |rating| %>
+      <li>
+        <%= rating %>
+        <% if @user == current_user %>
+            <%= link_to 'delete', rating, method: :delete, data: { confirm: 'Are you sure?' } %>
+        <% end %>
+      </li>
+  <% end %>
+</ul>
+<h2>Kaljaklubit</h2>
+<ul>
+  <% @user.memberships.each do |membership| %>
+      <li>
+        <%= membership.beer_club.name %>
+      </li>
+  <% end %>
+</ul>
+
+<% if @user == current_user %>
+  <%= link_to 'Edit', edit_user_path(@user) %>
+  <%= link_to 'Destroy', @user, method: :delete, data: { confirm: 'Are you sure?' } %>
+<% end %>
+<%= link_to 'Back', users_path %>

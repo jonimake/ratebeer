@@ -14,6 +14,7 @@ group :production do
 end
 
 ruby '2.3.0'
+gem 'bcrypt', '~> 3.1.7'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
