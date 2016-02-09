@@ -46,10 +46,7 @@ describe "Logged in user" do
     end
 
     it "should have favourite brewery" do
-
-      save_and_open_page
       expect(page).to have_content "Favourite brewery: Fuller's"
-
     end
 
     it "should have favoutire beer style" do
