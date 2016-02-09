@@ -11,6 +11,15 @@
   Average rating <%= @user.average_rating%>
 </div>
 <h2>Reittaukset</h2>
+
+<div>
+  Favourite brewery: <%= @user.favourite_brewery %>
+</div>
+
+<div>
+  Favourite beer style: <%= @user.favourite_style %>
+</div>
+
 <ul>
   <% @user.ratings.each do |rating| %>
       <li>

@@ -1,7 +1,9 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Listing Ratings</h1>
-
+<di>
+  Number of ratings: <%= @ratings.count %>
+</di>
 <ul>
   <% @ratings.each do |rating| %>
       <li> <%= rating %> <%= link_to rating.user.username, rating.user %></li>

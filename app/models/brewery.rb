@@ -15,4 +15,8 @@ class Brewery < ActiveRecord::Base
   end
   validates :name, uniqueness: true,
             presence: true
+
+  def to_s
+    "#{name}"
+  end
 end

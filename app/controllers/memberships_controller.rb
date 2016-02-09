@@ -29,7 +29,8 @@ class MembershipsController < ApplicationController
   def create
     @membership = Membership.new(membership_params)
     respond_to do |format|
-      if @membership.save
+      club = BeerClub.find membership_params[:beer_club_id]
+      if not current_user.in? club.members and @membership.save
         current_user.memberships << @membership
         format.html { redirect_to @membership, notice: 'Membership was successfully created.' }
         format.json { render :show, status: :created, location: @membership }

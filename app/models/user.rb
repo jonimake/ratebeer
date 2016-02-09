@@ -16,5 +16,23 @@ class User < ActiveRecord::Base
 
   has_secure_password
 
+  def favourite_beer
+    return nil if ratings.empty?   # palautetaan nil jos reittauksia ei ole
+    ratings.order(score: :desc).limit(1).first.beer
+  end
 
+  def favourite_style
+    return nil if ratings.empty?
+    ratings.joins(:beer).group(:style).limit(1).order("average_score desc").average(:score).keys.first
+  end
+
+  def favourite_brewery
+    return nil if ratings.empty?
+    beers
+        .joins(:brewery, :ratings)
+        .group(:brewery).limit(1)
+        .order("average_ratings_score desc")
+        .average("ratings.score")
+        .keys.first
+  end
 end
