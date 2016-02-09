@@ -12,13 +12,17 @@
 </div>
 <h2>Reittaukset</h2>
 
+<% if @user.ratings.empty? %>
+  <div>No ratings done yet!</div>
+<% else %>
 <div>
-  Favourite brewery: <%= @user.favourite_brewery %>
+  Favourite brewery: <%= @user.favourite_brewery.name %>
 </div>
 
 <div>
   Favourite beer style: <%= @user.favourite_style %>
 </div>
+<% end %>
 
 <ul>
   <% @user.ratings.each do |rating| %>
