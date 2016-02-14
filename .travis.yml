@@ -1,10 +1,15 @@
 language: ruby
-
 rvm:
- - 2.3.0
-
+- 2.3.0
 script:
- - bundle exec rake db:migrate --trace
- - RAILS_ENV=test bundle exec rake db:migrate --trace
- - bundle exec rake db:test:prepare
- - bundle exec rspec -fd spec/
+- bundle exec rake db:migrate --trace
+- RAILS_ENV=test bundle exec rake db:migrate --trace
+- bundle exec rake db:test:prepare
+- bundle exec rspec -fd spec/
+deploy:
+  provider: heroku
+  api_key:
+    secure: PSk+ppLI1z2ZDCbr8agdqtI8EtTadVVgcA+YavQOBV8JpD5uqLg9O2IhhsZgI1SHyokG8PTIJ2mI9JzQJZVAfKBNb/pr66HrgNbrADGOiPt+bZH/qkfqgCGxHpVOZRkA4QXFuC3TbJtXnlNrZG4XqixvXF69TEAyAuNM7uk7f+zCwdFBRk+tQGqom1EpYb2HOm7YeMI/frt62OyZM+esWYYJaVQAOxSEw9GNz+JCyqHMHIGRW9GPLBL4qUSvtpcv5X86DlVVCJEILaWhO0aptE6iRKwZ1q4UPDCup7N1xpeKEAgCZidMpt/bxxTCF4guLFNaDuyl8vr4rKH6o99TKy3+6pLatMWeP7As1sK99/brMXm4YwEvIdSzcXe3Gluv7Ac0YmPC7SjyXV4ALCD7G4ZJtCQ1qUuW0NkZEaIhijHPKdkLoyxTmeLXPpWqgyBlekMcEzUi+rIwG6ynJ/TJcSnbqXA7shRpbhZi8HefQpaZgopwjkSAcjSZGyqEIY86bIezRqIJhuCKOfjk8zfLP5yc7uhJ2A7IprYrFmUz7jQJzUGzgzpvO0eJG1R1MjfvsyJO03xcQpsfATzWCfr4AbOi5UP2fGawbvfYpSJwnChiSnWydU4chIJ20FDD2C1VeZY+bI1WzZkBBGL6NKW4C75bLvgEDJDZFi82496WOOs=
+  app: agile-spire-42384
+  on:
+    repo: jonimake/ratebeer
