@@ -15,6 +15,15 @@
   <%= @beer_club.city %>
 </p>
 
+<% if @membership %>
+  <%= form_for(@membership) do |f| %>
+      <%= f.hidden_field :beer_club_id %>
+      <%= f.submit value:"join the club" %>
+  <% end %>
+<% end %>
+<% if @old_membership %>
+    <%= link_to 'Quit club', @old_membership, method: :delete, data: { confirm: 'Are you sure you want to quit?' } %>
+<% end %>
 <p>
   <strong>Number of members</strong>
   <%= @beer_club.memberships.count %>

@@ -11,6 +11,13 @@ class BeerClubsController < ApplicationController
   # GET /beer_clubs/1
   # GET /beer_clubs/1.json
   def show
+    already_member = @beer_club.memberships.any?{|membership| membership.user.id == current_user.id}
+    if not already_member then
+      @membership = Membership.new
+      @membership.beer_club = @beer_club
+      @membership.user = current_user
+    end
+    @old_membership = @beer_club.memberships.select{|membership| membership.user.id == current_user.id}.first
   end
 
   # GET /beer_clubs/new
