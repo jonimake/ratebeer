@@ -19,3 +19,4 @@ b2.beers.create name:"Huvila ESB", style:style2, brewery:b1
 b2.beers.create name:"X Porter", style:style1, brewery:b2
 b3.beers.create name:"Hefeweizen", style:style1, brewery:b3
 b3.beers.create name:"Helles", style:style1, brewery:b1
+

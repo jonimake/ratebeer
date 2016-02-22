@@ -53,6 +53,7 @@ RSpec.describe User, type: :model do
   end
 
   describe "favourite beer" do
+    let(:style1){FactoryGirl.create(:style, name:"Extra Special Bitter")}
     let(:user){FactoryGirl.create(:user) }
 
     it "has method for determining one" do
@@ -64,15 +65,14 @@ RSpec.describe User, type: :model do
     end
 
     it "is the only rated if only one rating" do
-
-      beer = FactoryGirl.create(:beer)
+      beer = FactoryGirl.create(:beer, style:style1)
       rating = FactoryGirl.create(:rating, beer:beer, user:user)
       expect(user.favourite_beer).to eq(beer)
     end
 
     it "is the one with highest rating if several rated" do
-      create_beers_with_ratings(user, 10, 15, 9)
-      best = create_beer_with_rating(user, 25)
+      create_beers_with_ratings(user, style1, 10, 15, 9)
+      best = create_beer_with_rating_and_style(user, 25, style1)
       expect(user.favourite_beer).to eq(best)
     end
 
@@ -80,14 +80,17 @@ RSpec.describe User, type: :model do
 
   describe "favourite style" do
     let(:user){FactoryGirl.create(:user) }
+    let(:style1){FactoryGirl.create(:style, name:"Extra Special Bitter")}
+    let(:kuravesi){FactoryGirl.create(:style, name:"Kuravesi")}
+    let(:koffstyle){FactoryGirl.create(:style, name:"Koff")}
 
     it "is the one with highest rating if several rated" do
 
-      create_beer_with_rating_and_style(user, 10, "kuravesi")
-      create_beer_with_rating_and_style(user, 20, "koff")
-      create_beer_with_rating_and_style(user, 30, "Extra Special Bitter")
-      create_beer_with_rating_and_style(user, 20, "koff")
-      expect(user.favourite_style).to eq("Extra Special Bitter")
+      create_beer_with_rating_and_style(user, 10, kuravesi)
+      create_beer_with_rating_and_style(user, 20, koffstyle)
+      create_beer_with_rating_and_style(user, 30, style1)
+      create_beer_with_rating_and_style(user, 20, koffstyle)
+      expect(user.favourite_style).to eq(style1)
     end
   end
 
@@ -95,13 +98,15 @@ RSpec.describe User, type: :model do
     let(:user){FactoryGirl.create(:user) }
     let(:brew1){FactoryGirl.create(:brewery, name:"Koff")}
     let(:brew2){FactoryGirl.create(:brewery, name:"Fuller's")}
-
+    let(:style1){FactoryGirl.create(:style, name:"Extra Special Bitter")}
+    let(:kuravesi){FactoryGirl.create(:style, name:"Kuravesi")}
+    let(:koffstyle){FactoryGirl.create(:style, name:"Koff")}
     it "is the one with highest rating if several rated" do
 
-      brew1.beers << create_beer_with_rating_and_style(user, 10, "kuravesi")
-      brew1.beers << create_beer_with_rating_and_style(user, 30, "koff")
-      brew2.beers << create_beer_with_rating_and_style(user, 30, "Extra Special Bitter")
-      brew1.beers << create_beer_with_rating_and_style(user, 20, "koff")
+      brew1.beers << create_beer_with_rating_and_style(user, 10, kuravesi)
+      brew1.beers << create_beer_with_rating_and_style(user, 30, koffstyle)
+      brew2.beers << create_beer_with_rating_and_style(user, 30, style1)
+      brew1.beers << create_beer_with_rating_and_style(user, 20, koffstyle)
       expect(user.favourite_brewery).to eq(brew2)
     end
   end

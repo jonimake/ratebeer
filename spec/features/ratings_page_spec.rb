@@ -4,10 +4,12 @@ include Helpers
 
 describe "Beers" do
   let!(:user) { FactoryGirl.create :user }
+  let!(:style) {FactoryGirl.create :style }
 
   before :each do
     sign_in(username:"Pekka", password:"Foobar1")
-    beer = FactoryGirl.create(:beer)
+
+    beer = FactoryGirl.create(:beer, style:style)
     FactoryGirl.create(:rating, score:12, beer:beer, user:user)
     FactoryGirl.create(:rating, score:15, beer:beer, user:user)
     FactoryGirl.create(:rating, score:28, beer:beer, user:user)

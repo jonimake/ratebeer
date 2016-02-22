@@ -5,6 +5,7 @@ include Helpers
 describe "Beers" do
   let!(:brewery) { FactoryGirl.create :brewery, name:"Koff", id: 666 }
   let!(:user) { FactoryGirl.create :user }
+  let(:IPA) { FactoryGirl.create :style, name:"IPA"}
 
   before :each do
     sign_in(username:"Pekka", password:"Foobar1")
@@ -12,8 +13,7 @@ describe "Beers" do
 
   it "allows users to add new beers" do
     visit new_beer_path
-
-    select('IPA', from:'beer[style]')
+    select('IPA', from:'beer[style_id]')
     select('Koff', from:'beer[brewery_id]')
     fill_in('beer[name]', with:'test IPA beer')
 
@@ -24,8 +24,7 @@ describe "Beers" do
 
   it "doesn't allow users to add beers without a name" do
     visit new_beer_path
-
-    select('IPA', from:'beer[style]')
+    select('IPA', from:'beer[style_id]')
     select('Koff', from:'beer[brewery_id]')
     fill_in('beer[name]', with:'')
 

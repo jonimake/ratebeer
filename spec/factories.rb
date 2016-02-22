@@ -30,10 +30,14 @@ FactoryGirl.define do
     city "Helsinki"
   end
 
+  factory :style do
+    name "anon style"
+    description "anon style desc"
+  end
+
   factory :beer do
     name "anonymous"
     brewery
-    style "Lager"
   end
 
 

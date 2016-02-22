@@ -8,11 +8,15 @@ describe "Logged in user" do
   let(:fullers){FactoryGirl.create(:brewery, name:"Fuller's")}
   let(:koff){FactoryGirl.create(:brewery, name:"Koff")}
   let(:stadi){FactoryGirl.create(:brewery, name:"Stadin Panimo")}
+  let(:esb){FactoryGirl.create(:style, name: "ESB")}
+  let(:indianPaleAle){FactoryGirl.create(:style, name:"Indian Pale Ale")}
+  let(:ipa){FactoryGirl.create(:style, name:"IPA")}
+  let(:lager){FactoryGirl.create(:style, name:"Lager")}
 
   describe "with lots of ratings" do
     before :each do
-      beer = FactoryGirl.create(:beer, style: "ESB", brewery: fullers)
-      ipa = FactoryGirl.create(:beer, style: "Indian Pale Ale", brewery: fullers)
+      beer = FactoryGirl.create(:beer, style: esb, brewery: fullers)
+      ipabeer = FactoryGirl.create(:beer, style: indianPaleAle, brewery: fullers)
       FactoryGirl.create(:rating, score:12, beer:beer, user:user)
       FactoryGirl.create(:rating, score:15, beer:beer, user:user)
       FactoryGirl.create(:rating, score:35, beer:beer, user:user)
@@ -20,12 +24,12 @@ describe "Logged in user" do
       FactoryGirl.create(:rating, score:12, beer:beer, user:anotheruser)
       FactoryGirl.create(:rating, score:15, beer:beer, user:anotheruser)
 
-      stadiIpa = FactoryGirl.create(:beer, style: "IPA", brewery: stadi)
+      stadiIpa = FactoryGirl.create(:beer, style: ipa, brewery: stadi)
       FactoryGirl.create(:rating, score:2, beer:stadiIpa, user:user)
       FactoryGirl.create(:rating, score:50, beer:stadiIpa, user:user)
       FactoryGirl.create(:rating, score:8, beer:stadiIpa, user:user)
 
-      koffLager = FactoryGirl.create(:beer, style: "Lager", brewery: koff)
+      koffLager = FactoryGirl.create(:beer, style: lager, brewery: koff)
       FactoryGirl.create(:rating, score:2, beer:koffLager , user:user)
       FactoryGirl.create(:rating, score:10, beer:koffLager , user:user)
       FactoryGirl.create(:rating, score:8, beer:koffLager , user:user)

@@ -23,7 +23,11 @@ class User < ActiveRecord::Base
 
   def favourite_style
     return nil if ratings.empty?
-    ratings.joins(:beer).group(:style).limit(1).order("average_score desc").average(:score).keys.first
+    beers
+        .joins(:ratings, :style)
+        .group(:style).limit(1)
+        .order("average_ratings_score desc")
+        .average("ratings.score").first.first
   end
 
   def favourite_brewery
