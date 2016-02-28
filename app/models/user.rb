@@ -39,4 +39,15 @@ class User < ActiveRecord::Base
         .average("ratings.score")
         .keys.first
   end
+
+  def self.top(n)
+    sorted_by_rating_in_desc_order = User.all.sort_by{ |u| -(u.ratings.count||0) }
+    # palauta listalta parhaat n kappaletta
+    # miten? ks. http://www.ruby-doc.org/core-2.1.0/Array.html
+    sorted_by_rating_in_desc_order.slice(0..n)
+  end
+
+  def to_s
+    username
+  end
 end

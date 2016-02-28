@@ -5,6 +5,9 @@ class Brewery < ActiveRecord::Base
   has_many :beers
   has_many :ratings, through: :beers
 
+  scope :active, -> { where active:true }
+  scope :retired, -> { where active:[nil,false] }
+
   def validate_year()
     if year.nil?
       errors.add(:year, 'must be a number')
@@ -15,4 +18,17 @@ class Brewery < ActiveRecord::Base
   end
   validates :name, uniqueness: true,
             presence: true
+
+
+  def self.top(n)
+    sorted_by_rating_in_desc_order = Brewery.all.sort_by{ |b| -(b.average_rating||0) }
+    # palauta listalta parhaat n kappaletta
+    # miten? ks. http://www.ruby-doc.org/core-2.1.0/Array.html
+    sorted_by_rating_in_desc_order.slice(0..n)
+  end
+
+  def to_s
+    name
+  end
+
 end

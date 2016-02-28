@@ -9,4 +9,6 @@ module RatingAverage
     ratings.average(:score)
   end
 
+
+
 end

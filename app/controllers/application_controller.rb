@@ -15,4 +15,7 @@ class ApplicationController < ActionController::Base
     redirect_to signin_path, notice:'you should be signed in' if current_user.nil?
   end
 
+  def ensure_is_admin
+    redirect_to signin_path, notice:'Only admin can edit or delete' if not current_user.admin
+  end
 end

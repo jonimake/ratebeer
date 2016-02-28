@@ -1,0 +1,17 @@
+<% if item %>
+<table class="table table-hover">
+  <thead>
+  <tr>
+    <th><%= header %></th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% item.each do |i| %>
+      <tr>
+        <td><%= i %></td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+<% end %>

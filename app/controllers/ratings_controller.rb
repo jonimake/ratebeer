@@ -6,6 +6,11 @@ class RatingsController < ApplicationController
   # GET /ratings.json
   def index
     @ratings = Rating.all
+    @top_breweries = Brewery.top 3
+    @top_raters = User.top 3
+    @top_beers = Beer.top 3
+    @top_styles = Style.top 3
+    @last_ratings = Rating.recent
   end
 
   def new
