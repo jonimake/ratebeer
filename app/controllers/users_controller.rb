@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-  before_action :ensure_that_signed_in, except: [:index, :show, :new, :create]
+  before_action :ensure_that_signed_in, except: [:index, :show, :new, :create, :toggle_disabled]
+  before_action :ensure_is_admin, only: [:toggle_disabled]
 
   # GET /users
   # GET /users.json
@@ -20,6 +21,16 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
+  end
+
+  def toggle_disabled
+
+    user = User.find(params[:id])
+    user.update_attribute :disabled, (not user.disabled)
+
+    new_status = user.disabled? ? "enabled" : "disabled"
+
+    redirect_to :back, notice:"#{new_status} user account"
   end
 
   # POST /users

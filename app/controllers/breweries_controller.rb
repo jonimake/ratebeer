@@ -9,6 +9,17 @@ class BreweriesController < ApplicationController
     @breweries = Brewery.all
     @active_breweries = Brewery.active
     @retired_breweries = Brewery.retired
+
+    orderby = params[:order];
+    if orderby == 'name'
+      @breweries = @breweries.sort_by { |b| b.name}
+      @active_breweries = @active_breweries.sort_by { |b| b.name}
+      @retired_breweries = @retired_breweries.sort_by { |b| b.name}
+    elsif orderby == 'year'
+      @breweries = @breweries.sort_by { |b| b.year}
+      @active_breweries = @active_breweries.sort_by { |b| b.year}
+      @retired_breweries = @retired_breweries.sort_by { |b| b.year}
+    end
   end
 
   # GET /breweries/1

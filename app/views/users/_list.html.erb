@@ -1,0 +1,27 @@
+<% if users %>
+  <table class="table table-hover">
+    <thead>
+    <tr>
+      <th class="col-md-3">Username</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <% users.each do |user| %>
+        <tr>
+          <td>
+            <%= link_to user.username, user %>
+            </br>
+            <% if user.disabled %>
+              Account disabled
+            <% end %>
+          </td>
+
+          <% if current_user && current_user.admin %>
+            <td><%= link_to "Toggle disabled/enabled", toggle_disabled_user_path(user.id), method: :post, class: "btn btn-primary" %></td>
+          <% end %>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+<% end %>
