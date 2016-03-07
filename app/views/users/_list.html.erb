@@ -1,27 +1,31 @@
-<% if users %>
-  <table class="table table-hover">
-    <thead>
-    <tr>
-      <th class="col-md-3">Username</th>
-    </tr>
-    </thead>
+<h1>Users</h1>
 
-    <tbody>
-    <% users.each do |user| %>
-        <tr>
-          <td>
-            <%= link_to user.username, user %>
-            </br>
-            <% if user.disabled %>
-              Account disabled
-            <% end %>
-          </td>
-
-          <% if current_user && current_user.admin %>
-            <td><%= link_to "Toggle disabled/enabled", toggle_disabled_user_path(user.id), method: :post, class: "btn btn-primary" %></td>
+<table class="table table-hover">
+  <thead>
+  <tr>
+    <th>Username</th>
+    <th> rated beers </th>
+    <th> total ratings </th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @users.each do |user| %>
+      <tr>
+        <td><%= link_to user.username, user %></td>
+        <td><%= user.beers.size %></td>
+        <td><%= user.ratings.size %></td>
+        <td>
+          <% if admin_user and user.disabled? %>
+              <span class="label label-info">account frozen</span>
           <% end %>
-        </tr>
-    <% end %>
-    </tbody>
-  </table>
-<% end %>
+          <% if admin_user %>
+          <span>
+              <%= link_to "Toggle disabled/enabled", toggle_disabled_user_path(user.id), method: :post, class: "btn btn-primary" %>
+          </span>
+          <% end %>
+        </td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>

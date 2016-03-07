@@ -7,4 +7,8 @@ module ApplicationHelper
       raw("#{edit} #{del}")
     end
   end
+
+  def round(f)
+    f.round
+  end
 end

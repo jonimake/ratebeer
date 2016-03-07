@@ -4,7 +4,8 @@ class User < ActiveRecord::Base
   has_many :ratings, dependent: :destroy
   has_many :beers, through: :ratings
 
-  has_many :memberships
+  has_many :memberships, -> {where confirmed: true}
+  has_many :membership_applications, -> {where confirmed: false}, class_name: 'Membership'
   has_many :beer_clubs, -> {uniq},through: :memberships
 
   validates :username, uniqueness: true,

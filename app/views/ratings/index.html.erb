@@ -1,6 +1,10 @@
 <p id="notice"><%= notice %></p>
+<div style="border-style: solid;">
+  ratingslist: <%= ActionController::Base.new.fragment_exist?( 'ratingslist' ) %>
+</div>
 
 <h1>Listing Ratings</h1>
+<% cache "ratingslist", skip_digest: true do %>
 <div>
   Number of ratings: <%= @ratings.count %>
 </div>
@@ -43,5 +47,5 @@
   </tbody>
 
 </table>
-
+<% end %>
 <%= link_to('New rating', new_rating_path, class:'btn btn-primary') if current_user %>

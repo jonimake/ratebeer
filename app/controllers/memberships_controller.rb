@@ -1,5 +1,5 @@
 class MembershipsController < ApplicationController
-  before_action :set_membership, only: [:show, :edit, :update, :destroy]
+  before_action :set_membership, only: [:show, :edit, :update, :destroy, :confirm_membership]
   before_action :ensure_that_signed_in, except: [:index, :show]
 
   # GET /memberships
@@ -23,6 +23,16 @@ class MembershipsController < ApplicationController
   # GET /memberships/1/edit
   def edit
     @beerclubs = BeerClub.all
+  end
+
+  def confirm_membership
+    notice = "Can't confirm membership without being a member of the club"
+    if current_user.in? @membership.beer_club.members
+      @membership.confirmed = true
+      @membership.save
+      notice = "Confirmed membership for #{@membership.user.username}"
+    end
+    redirect_to :back, notice: notice
   end
 
   # POST /memberships

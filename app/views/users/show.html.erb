@@ -43,6 +43,17 @@
   <% end %>
 </ul>
 
+<% if @user.membership_applications.length > 0 %>
+  <h4>Haetut jäsenyydet</h4>
+  <ul>
+    <% @user.membership_applications.each do |application| %>
+        <li>
+          <%= application.beer_club.name %>
+        </li>
+    <% end %>
+  </ul>
+<% end %>
+
 <% if @user == current_user %>
   <%= link_to 'Edit', edit_user_path(@user) %>
   <%= link_to 'Destroy', @user, method: :delete, data: { confirm: 'Are you sure?' } %>

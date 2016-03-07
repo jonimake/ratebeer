@@ -35,5 +35,14 @@
   <% end %>
 </ul>
 
+
+<strong>Pending memberships</strong>
+<ul>
+  <% @beer_club.membership_applications.each do |application| %>
+      <li> <%=application.user %> <%= link_to "Approve membership", confirm_membership_membership_path(application), method: :post, class: "btn btn-primary" %> </li>
+  <% end %>
+</ul>
+
+
 <%= link_to 'Edit', edit_beer_club_path(@beer_club) %> |
 <%= link_to 'Back', beer_clubs_path %>

@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   resources :styles
-  resources :memberships
+  resources :memberships do
+    post 'confirm_membership', on: :member
+  end
+
   resources :beer_clubs
   resources :users do
     post 'toggle_disabled', on: :member
@@ -9,6 +12,7 @@ Rails.application.routes.draw do
   resources :breweries do
     post 'toggle_activity', on: :member
   end
+
   resources :ratings, only: [:index, :new, :create, :destroy]
   get 'signup', to: 'users#new'
 
@@ -18,6 +22,12 @@ Rails.application.routes.draw do
 
   resources :places, only:[:index, :show]
   post 'places', to:'places#search'
+
+  get 'beerlist', to:'beers#list'
+
+  get 'ngbeerlist', to:'beers#nglist'
+
+  get 'brewerylist', to:'breweries#list'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
